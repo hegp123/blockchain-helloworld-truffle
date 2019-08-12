@@ -1,19 +1,19 @@
-pragma solidity ^0.4.24; 
- 
-contract UsersContract{
+pragma solidity ^0.4.24;
 
-    struct User{
+contract UsersContract {
+    
+    struct User {
         string name;
         string surName;
     }
-
+    
     mapping(address => User) private users;
     mapping(address => bool) private joinedUsers;
     address[] total;
 
-    function join (string name, string surName) public {
+    function join(string name, string surName) public {
         require(!userJoined(msg.sender));
-        User storage  user = users[msg.sender];
+        User storage user = users[msg.sender];
         user.name = name;
         user.surName = surName;
         joinedUsers[msg.sender] = true;
@@ -24,13 +24,13 @@ contract UsersContract{
         require(userJoined(msg.sender));
         User memory user = users[addr];
         return (user.name, user.surName);
-    }
+    }    
 
     function userJoined(address addr) private view returns (bool) {
         return joinedUsers[addr];
     }
 
-    function totalUser() public view returns (uint){
+    function totalUsers() public view returns (uint) {
         return total.length;
     }
 
